@@ -1,69 +1,26 @@
 using UnityEngine;
+using System.Collections;
+using Rewired;
 
-public class move : MonoBehaviour
+public class Hero : MonoBehaviour
 {
-    public float vitesseDeplacement = 5f;
-    public float forceSaut = 10f;
-    public Transform solCheckPosition;
+    public int playerId = 0; // Le joueur Rewired dont nous voulons contrôler ce GameObject
+    private Player player; // Le Player Rewired associé à ce joueur
 
-    private bool auSol = false;
-    private bool peutSauter = true;
-    private int nombreSautsRestants = 2;
+    public float moveSpeed = 5f; // Vitesse de déplacement
 
-    private Rigidbody2D rb;
-    private Animator animator;
-    public SpriteRenderer spriterenderer;
-
-    void Start()
+    private void Awake()
     {
-
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        // Obtenez le Player associé à ce joueur
+        player = ReInput.players.GetPlayer(playerId);
     }
 
-    void Update()
+    private void Update()
     {
         // Déplacement horizontal
-        float deplacementHorizontal = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(deplacementHorizontal * vitesseDeplacement, rb.velocity.y);
 
-        // Vérification du sol
-        auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);
-
-        // Saut
-        if (auSol)
-        {
-            nombreSautsRestants = 2;
-            peutSauter = true;
-        }
-
-        if (Input.GetButtonDown("Jump") && (auSol || (peutSauter && nombreSautsRestants > 0)))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, forceSaut);
-
-            if (!auSol)
-            {
-                nombreSautsRestants--;
-                peutSauter = false;
-            }
-        }
-
-        Flip(rb.velocity.x);
-        float speed = Mathf.Abs(rb.velocity.x);
-        animator.SetFloat("Speed", speed);
+        // Déplacement du joueur
+        Vector3 moveDirection = new Vector3(player.GetAxis("MoveHorizontal"), 0f, 0f);
+        transform.position += moveDirection * moveSpeed * Time.deltaTime;
     }
-
-    void Flip(float _velocity)
-    {
-        if (_velocity > 0.1f)
-        {
-            spriterenderer.flipX = false;
-        }
-        else if (_velocity < 0.1f)
-        {
-            spriterenderer.flipX = true;
-        }
-    }
-
-
 }
