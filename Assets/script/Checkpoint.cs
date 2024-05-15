@@ -8,7 +8,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (collision.transform.tag == "player")
         {
-            //Hero.lastCheckPointPos = transform.position;
+            
         }
     }
 }

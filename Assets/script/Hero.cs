@@ -20,7 +20,7 @@ public class Hero : MonoBehaviour
         // Déplacement horizontal
 
         // Déplacement du joueur
-        Vector3 moveDirection = new Vector3(player.GetAxis("MoveHorizontal"), 0f, 0f);
+        Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
     }
 }
