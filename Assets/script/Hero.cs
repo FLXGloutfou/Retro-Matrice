@@ -1,20 +1,26 @@
 using UnityEngine;
 
-public class move : MonoBehaviour
+public class Hero : MonoBehaviour
 {
     public float vitesseDeplacement = 5f;
     public float forceSaut = 10f;
     public Transform solCheckPosition;
     public GameObject[] prefabsToInvoke; 
-    public float offsetDistance = 1f; 
+    public float offsetDistance = 1f;
+    public int nombreSautsRestants = 2;
+    public int currentPrefabIndex = 0;
+    public int TurretLoad = 0;
+    public delegate void TurretLoadChangedEventHandler(int newTurretLoad);
+    public static event TurretLoadChangedEventHandler OnTurretLoadChanged;
+
 
 
     private bool auSol = false;
     private bool peutSauter = true;
-    private int nombreSautsRestants = 2;
     private Rigidbody2D rb;
-    private bool faceRight = true; 
-    private int currentPrefabIndex = 0; 
+    private bool faceRight = true;
+    
+
 
     void Start()
     {
@@ -30,7 +36,24 @@ public class move : MonoBehaviour
         // Vérification du sol
         auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);
 
-        // Saut
+        
+    }
+
+    void Move()
+    {
+        float deplacementHorizontal = Input.GetAxis("Horizontal");
+        rb.velocity = new Vector2(deplacementHorizontal * vitesseDeplacement, rb.velocity.y);
+
+        if (deplacementHorizontal > 0 && !faceRight)
+        {
+            Flip();
+        }
+        else if (deplacementHorizontal < 0 && faceRight)
+        {
+            Flip();
+        }
+
+        //===SAUT===
         if (auSol)
         {
             nombreSautsRestants = 2;
@@ -49,29 +72,23 @@ public class move : MonoBehaviour
         }
     }
 
-    void Move()
+    public void TurretLoadCount(int value)
     {
-        float deplacementHorizontal = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(deplacementHorizontal * vitesseDeplacement, rb.velocity.y);
-
-        if (deplacementHorizontal > 0 && !faceRight)
-        {
-            Flip();
-        }
-        else if (deplacementHorizontal < 0 && faceRight)
-        {
-            Flip();
-        }
+        TurretLoad += value;
+        OnTurretLoadChanged?.Invoke(TurretLoad);
+        Debug.Log("le nombre de recharche de tourelle est de" + TurretLoad);
     }
 
     void InvoqueTurret()
     {
-        if (Input.GetButtonDown("Create") && prefabsToInvoke.Length > 0)
+        if (Input.GetButtonDown("Create") && prefabsToInvoke.Length > 0 && TurretLoad > 0)
         {
             // Calcule la position devant le joueur
             Vector2 spawnPosition = transform.position;
             spawnPosition += faceRight ? Vector2.right * offsetDistance : Vector2.left * offsetDistance;
             Instantiate(prefabsToInvoke[currentPrefabIndex], spawnPosition, Quaternion.identity);
+            TurretLoad -= 1;
+            OnTurretLoadChanged?.Invoke(TurretLoad);
         }
     }
 
