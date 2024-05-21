@@ -431,7 +431,7 @@ MonoBehaviour:
   offsetDistance: 5
   nombreSautsRestants: 2
   currentPrefabIndex: 0
-  TurretLoad: 0
+  TurretLoad: 5000
 --- !u!61 &622308959
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -678,6 +678,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 622308962}
+  UpoffsetDistance: -2
+  RightoffsetDistance: 4
 --- !u!1 &686413133
 GameObject:
   m_ObjectHideFlags: 0
