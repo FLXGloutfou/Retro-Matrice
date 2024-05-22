@@ -1,17 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CamFollow : MonoBehaviour
 {
+    public float FollowSpeed = 2f;
     public Transform target;
-    public float UpoffsetDistance = -2f;
-    public float RightoffsetDistance = 4f;
+    public float Offset = -1f;
 
-    void LateUpdate()
+    private void Update()
     {
-        if (target != null)
-        {
-            // Déplacer la caméra pour qu'elle soit centrée sur le joueur
-            transform.position = new Vector3(target.position.x + RightoffsetDistance, target.position.y - UpoffsetDistance, transform.position.z);
-        }
+        Vector3 newPos = new Vector3(target.position.x, target.position.y + Offset, -10f);
+        transform.position = Vector3.Slerp(transform.position, newPos, FollowSpeed * Time.deltaTime);
     }
 }

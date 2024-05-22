@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hero : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class Hero : MonoBehaviour
     public delegate void TurretLoadChangedEventHandler(int newTurretLoad);
     public static event TurretLoadChangedEventHandler OnTurretLoadChanged;
 
+    public float currentHealth = 100f;
+    public float maxHealth = 100f;
+    public delegate void HealthChangedEventHandler(float newHealth);
+    public static event HealthChangedEventHandler OnHealthChanged;
+    private Vector3 respawnpoint;
 
 
     private bool auSol = false;
@@ -25,6 +31,7 @@ public class Hero : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        respawnpoint = transform.position;
     }
 
     void Update()
@@ -76,7 +83,6 @@ public class Hero : MonoBehaviour
     {
         TurretLoad += value;
         OnTurretLoadChanged?.Invoke(TurretLoad);
-        Debug.Log("le nombre de recharche de tourelle est de" + TurretLoad);
     }
 
     void InvoqueTurret()
@@ -111,5 +117,33 @@ public class Hero : MonoBehaviour
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;
         transform.localScale = scaler;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        OnHealthChanged?.Invoke(currentHealth);
+        if (currentHealth <= 0)
+        {
+            die();
+        }
+    }
+
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(currentHealth);
+    }
+
+    void die()
+    {
+        currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(currentHealth);
+        transform.position = respawnpoint;
+    }
+    public void SetRespawnPoint(Vector3 newRespawnPoint)
+    {
+        respawnpoint = newRespawnPoint;
     }
 }
