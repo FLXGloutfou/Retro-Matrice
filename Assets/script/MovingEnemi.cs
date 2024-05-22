@@ -15,7 +15,6 @@ public class MovingEnemi : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Enemy script attached to: " + gameObject.name);
         target = waypoints[0];
         //spriteRenderer = GetComponent<SpriteRenderer>();
     }

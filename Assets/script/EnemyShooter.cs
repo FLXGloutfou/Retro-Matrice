@@ -30,11 +30,9 @@ public class EnemyShooter : MonoBehaviour
                 timer = 0;
                 shoot();
             }
-        }
-
-        
+        }       
     }
-
+ 
 
     void shoot()
     {

@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     private float Timer;
     public float damage;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,14 +34,19 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void OnTriggerEnter2D(Collider2D other)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("shield"))
         {
-            other.gameObject.GetComponent<Hero>().TakeDamage(damage);
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<Hero>().TakeDamage(damage);
 
             Destroy(gameObject);
-
         }
     }
+
 }
