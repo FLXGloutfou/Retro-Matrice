@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 16613236}
   - component: {fileID: 16613235}
   - component: {fileID: 16613234}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 270046090}
   - component: {fileID: 270046089}
   - component: {fileID: 270046088}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2149,6 +2149,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2211499780822466791, guid: eacaa472e1ab66c48bfa2307176e5e09, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4024938841722076827, guid: eacaa472e1ab66c48bfa2307176e5e09, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.02

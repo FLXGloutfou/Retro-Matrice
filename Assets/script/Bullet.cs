@@ -37,14 +37,16 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("shield"))
-        {
-            Destroy(gameObject);
-        }
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<Hero>().TakeDamage(damage);
 
+            Destroy(gameObject);
+        }
+        int solidLayer = LayerMask.NameToLayer("Solid");
+
+        if (collision.gameObject.layer == solidLayer)
+        {
             Destroy(gameObject);
         }
     }
