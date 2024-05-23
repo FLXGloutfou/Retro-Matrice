@@ -36,7 +36,7 @@ public class WallEnemi : MonoBehaviour
         Vector3 directionToPlayer = player.transform.position - transform.position;
         directionToPlayer.Normalize();
         Vector3 spawnPosition = transform.position + directionToPlayer * distanceFromEnemy + Vector3.up * verticalOffset;
-        spawnedWall = Instantiate(mur, spawnPosition, Quaternion.identity);
+        spawnedWall = Instantiate(mur, spawnPosition, Quaternion.identity, this.transform);
         wallSpawned = true;
     }
 

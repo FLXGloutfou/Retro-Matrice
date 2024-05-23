@@ -40,7 +40,7 @@ public class Hero : MonoBehaviour
         ChangePrefab();
         Move();
 
-        // Vérification du sol
+        // Vï¿½rification du sol
         auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);
 
         

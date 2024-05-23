@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 501376529936368351}
   - component: {fileID: 775324850125040285}
   - component: {fileID: 5376214016965087263}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallEnemi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
