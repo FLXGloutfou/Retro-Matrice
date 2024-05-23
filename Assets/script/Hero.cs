@@ -7,7 +7,7 @@ public class Hero : MonoBehaviour
     public float forceSaut = 10f;
     public Transform solCheckPosition;
     public GameObject[] prefabsToInvoke; 
-    public float offsetDistance = 1f;
+    public Vector2[] offsetDistances;
     public int nombreSautsRestants = 2;
     public int currentPrefabIndex = 0;
     public int TurretLoad = 0;
@@ -86,12 +86,11 @@ public class Hero : MonoBehaviour
     }
 
     void InvoqueTurret()
-    {
+  {
         if (Input.GetButtonDown("Create") && prefabsToInvoke.Length > 0 && TurretLoad > 0)
         {
-            // Calcule la position devant le joueur
-            Vector2 spawnPosition = transform.position;
-            spawnPosition += faceRight ? Vector2.right * offsetDistance : Vector2.left * offsetDistance;
+            Vector2 offset = offsetDistances.Length > currentPrefabIndex ? offsetDistances[currentPrefabIndex] : Vector2.right; // Utilise l'offset spécifié ou une valeur par défaut
+            Vector2 spawnPosition = (Vector2)transform.position + (faceRight ? new Vector2(offset.x, offset.y) : new Vector2(-offset.x, offset.y));
             Instantiate(prefabsToInvoke[currentPrefabIndex], spawnPosition, Quaternion.identity);
             TurretLoad -= 1;
             OnTurretLoadChanged?.Invoke(TurretLoad);
