@@ -11,6 +11,9 @@ public class Hero : MonoBehaviour
     public int nombreSautsRestants = 2;
     public int currentPrefabIndex = 0;
     public int TurretLoad = 0;
+    public MonoBehaviour scriptOnPrefab;
+    public float newOpacity = 1f;
+    private GameObject currentPreShowFab;
     public delegate void TurretLoadChangedEventHandler(int newTurretLoad);
     public static event TurretLoadChangedEventHandler OnTurretLoadChanged;
 
@@ -39,6 +42,9 @@ public class Hero : MonoBehaviour
         InvoqueTurret();
         ChangePrefab();
         Move();
+        PreShowPrefab();
+        
+        
 
         // V�rification du sol
         auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);
@@ -108,6 +114,29 @@ public class Hero : MonoBehaviour
         {
             currentPrefabIndex = (currentPrefabIndex - 1 + prefabsToInvoke.Length) % prefabsToInvoke.Length;
         }
+    }
+
+    void PreShowPrefab()
+    {
+        Vector2 offset = offsetDistances.Length > currentPrefabIndex ? offsetDistances[currentPrefabIndex] : Vector2.right;
+        Vector2 spawnPosition = (Vector2)transform.position + (faceRight ? new Vector2(offset.x, offset.y) : new Vector2(-offset.x, offset.y));
+
+        Destroy(currentPreShowFab);
+        currentPreShowFab = Instantiate(prefabsToInvoke[currentPrefabIndex], spawnPosition, Quaternion.identity);
+
+        if (currentPreShowFab)
+        {
+            SpriteRenderer spriteRenderer = currentPreShowFab.GetComponent<SpriteRenderer>();
+            Color spriteColor = spriteRenderer.color;
+            spriteColor.a = newOpacity;
+            spriteRenderer.color = spriteColor;
+
+            Collider2D colliderToDisable = currentPreShowFab.GetComponent<Collider2D>();
+            colliderToDisable.enabled = false;
+            scriptOnPrefab = currentPreShowFab.GetComponent<MonoBehaviour>();
+            scriptOnPrefab.enabled = false;
+        }
+        
     }
 
     void Flip()

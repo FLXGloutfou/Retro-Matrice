@@ -626,6 +626,8 @@ MonoBehaviour:
   nombreSautsRestants: 2
   currentPrefabIndex: 0
   TurretLoad: 5000
+  scriptOnPrefab: {fileID: 0}
+  newOpacity: 0.3
   currentHealth: 100
   maxHealth: 100
 --- !u!61 &622308959
