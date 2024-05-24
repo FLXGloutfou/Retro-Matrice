@@ -45,7 +45,13 @@ public class Hero : MonoBehaviour
         PreShowPrefab();
 
         // V�rification du sol
-        auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);      
+        auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);
+
+        if (auSol)
+        {
+            nombreSautsRestants = 2;
+            peutSauter = true;
+        }
     }
 
     //==================================== LES INPUT====================================//
