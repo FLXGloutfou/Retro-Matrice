@@ -29,6 +29,7 @@ public class Hero : MonoBehaviour
     private bool peutSauter = true;
     private Rigidbody2D rb;
     private bool faceRight = true;
+    private Vector2 moveInput;
     
 
 
@@ -40,41 +41,23 @@ public class Hero : MonoBehaviour
 
     void Update()
     {
-        InvoqueTurret();
-        ChangePrefab();
         Move();
         PreShowPrefab();
-        
-        
 
         // V�rification du sol
-        auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);
-
-        
+        auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);      
     }
 
-    void Move()
+    //==================================== LES INPUT====================================//
+
+    public void OnMove(InputAction.CallbackContext context)
     {
-        float deplacementHorizontal = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(deplacementHorizontal * vitesseDeplacement, rb.velocity.y);
+        moveInput = context.ReadValue<Vector2>();
+    }
 
-        if (deplacementHorizontal > 0 && !faceRight)
-        {
-            Flip();
-        }
-        else if (deplacementHorizontal < 0 && faceRight)
-        {
-            Flip();
-        }
-
-        //===SAUT===
-        if (auSol)
-        {
-            nombreSautsRestants = 2;
-            peutSauter = true;
-        }
-
-        if (Input.GetButtonDown("Jump") && (auSol || (peutSauter && nombreSautsRestants > 0)))
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed && (auSol || (peutSauter && nombreSautsRestants > 0)))
         {
             rb.velocity = new Vector2(rb.velocity.x, forceSaut);
 
@@ -86,17 +69,11 @@ public class Hero : MonoBehaviour
         }
     }
 
-    public void TurretLoadCount(int value)
+    public void OnInvoqueTurret(InputAction.CallbackContext context)
     {
-        TurretLoad += value;
-        OnTurretLoadChanged?.Invoke(TurretLoad);
-    }
-
-    void InvoqueTurret()
-  {
-        if (Input.GetButtonDown("Create") && prefabsToInvoke.Length > 0 && TurretLoad > 0)
+        if (context.performed && prefabsToInvoke.Length > 0 && TurretLoad > 0)
         {
-            Vector2 offset = offsetDistances.Length > currentPrefabIndex ? offsetDistances[currentPrefabIndex] : Vector2.right; // Utilise l'offset spécifié ou une valeur par défaut
+            Vector2 offset = offsetDistances.Length > currentPrefabIndex ? offsetDistances[currentPrefabIndex] : Vector2.right;
             Vector2 spawnPosition = (Vector2)transform.position + (faceRight ? new Vector2(offset.x, offset.y) : new Vector2(-offset.x, offset.y));
             Instantiate(prefabsToInvoke[currentPrefabIndex], spawnPosition, Quaternion.identity);
             TurretLoad -= 1;
@@ -104,17 +81,43 @@ public class Hero : MonoBehaviour
         }
     }
 
-    void ChangePrefab()
+    public void OnNextPrefab(InputAction.CallbackContext context)
     {
-        if (Input.GetButtonDown("nextPrefab") && prefabsToInvoke.Length > 0)
+        if (context.performed && prefabsToInvoke.Length > 0)
         {
             currentPrefabIndex = (currentPrefabIndex + 1) % prefabsToInvoke.Length;
         }
+            
+    }
 
-        if (Input.GetButtonDown("prevPrefab") && prefabsToInvoke.Length > 0)
+    public void OnPrevPrefab(InputAction.CallbackContext context)
+    {
+        if (context.performed && prefabsToInvoke.Length > 0)
         {
             currentPrefabIndex = (currentPrefabIndex - 1 + prefabsToInvoke.Length) % prefabsToInvoke.Length;
         }
+    }
+
+    //==================================== LE CODE====================================//
+    void Move()
+    {
+        float deplacementHorizontal = moveInput.x;
+        rb.velocity = new Vector2(deplacementHorizontal * vitesseDeplacement, rb.velocity.y);
+
+        if (deplacementHorizontal > 0 && !faceRight)
+        {
+            Flip();
+        }
+        else if (deplacementHorizontal < 0 && faceRight)
+        {
+            Flip();
+        }
+    }
+
+    public void TurretLoadCount(int value)
+    {
+        TurretLoad += value;
+        OnTurretLoadChanged?.Invoke(TurretLoad);
     }
 
     void PreShowPrefab()

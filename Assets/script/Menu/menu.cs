@@ -1,13 +1,12 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class menu : MonoBehaviour
+public class Menu : MonoBehaviour
 {
-    public GameObject playWindow;
     public GameObject settingWindow;
+    public GameObject playWindow;
     public void startgame()
     {
-        Debug.Log("oui");
         playWindow.SetActive(true);
     }
     public void settingbutton()
