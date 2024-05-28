@@ -29,10 +29,7 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("nextPrefab") || Input.GetButtonDown("prevPrefab"))
-        {
-            UpdatePrefabImage();
-        }
+        UpdatePrefabImage();     
     }
 
     void UpdatePrefabImage()

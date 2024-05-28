@@ -71,6 +71,24 @@ public partial class @HeroMove: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e363a9c-a0b8-4e66-93e3-8ed2d091d6ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""6c880700-f502-4e4a-b8e0-bb6c0335f3c3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -247,6 +265,28 @@ public partial class @HeroMove: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""prevPrefab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""501e4071-3b35-4986-8386-105219a84dd8"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0fa20864-b5b7-40a0-bcbe-4cb6c134a3a2"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -839,6 +879,8 @@ public partial class @HeroMove: IInputActionCollection2, IDisposable
         m_Player_Create = m_Player.FindAction("Create", throwIfNotFound: true);
         m_Player_nextPrefab = m_Player.FindAction("nextPrefab", throwIfNotFound: true);
         m_Player_prevPrefab = m_Player.FindAction("prevPrefab", throwIfNotFound: true);
+        m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -917,6 +959,8 @@ public partial class @HeroMove: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Create;
     private readonly InputAction m_Player_nextPrefab;
     private readonly InputAction m_Player_prevPrefab;
+    private readonly InputAction m_Player_Restart;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @HeroMove m_Wrapper;
@@ -926,6 +970,8 @@ public partial class @HeroMove: IInputActionCollection2, IDisposable
         public InputAction @Create => m_Wrapper.m_Player_Create;
         public InputAction @nextPrefab => m_Wrapper.m_Player_nextPrefab;
         public InputAction @prevPrefab => m_Wrapper.m_Player_prevPrefab;
+        public InputAction @Restart => m_Wrapper.m_Player_Restart;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -950,6 +996,12 @@ public partial class @HeroMove: IInputActionCollection2, IDisposable
             @prevPrefab.started += instance.OnPrevPrefab;
             @prevPrefab.performed += instance.OnPrevPrefab;
             @prevPrefab.canceled += instance.OnPrevPrefab;
+            @Restart.started += instance.OnRestart;
+            @Restart.performed += instance.OnRestart;
+            @Restart.canceled += instance.OnRestart;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -969,6 +1021,12 @@ public partial class @HeroMove: IInputActionCollection2, IDisposable
             @prevPrefab.started -= instance.OnPrevPrefab;
             @prevPrefab.performed -= instance.OnPrevPrefab;
             @prevPrefab.canceled -= instance.OnPrevPrefab;
+            @Restart.started -= instance.OnRestart;
+            @Restart.performed -= instance.OnRestart;
+            @Restart.canceled -= instance.OnRestart;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1156,6 +1214,8 @@ public partial class @HeroMove: IInputActionCollection2, IDisposable
         void OnCreate(InputAction.CallbackContext context);
         void OnNextPrefab(InputAction.CallbackContext context);
         void OnPrevPrefab(InputAction.CallbackContext context);
+        void OnRestart(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

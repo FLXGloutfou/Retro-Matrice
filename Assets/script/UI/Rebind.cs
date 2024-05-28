@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class Rebind : MonoBehaviour
 {
     private HeroMove inputActions;
     private Hero hero;
@@ -21,6 +21,8 @@ public class InputManager : MonoBehaviour
         inputActions.Player.Create.performed += hero.OnInvoqueTurret;
         inputActions.Player.nextPrefab.performed += hero.OnNextPrefab;
         inputActions.Player.prevPrefab.performed += hero.OnPrevPrefab;
+        inputActions.Player.Restart.performed -= hero.Restart;
+        inputActions.Player.Pause.performed -= hero.Pause;
     }
 
     private void OnDisable()
@@ -31,6 +33,8 @@ public class InputManager : MonoBehaviour
         inputActions.Player.Create.performed -= hero.OnInvoqueTurret;
         inputActions.Player.nextPrefab.performed -= hero.OnNextPrefab;
         inputActions.Player.prevPrefab.performed -= hero.OnPrevPrefab;
+        inputActions.Player.Restart.performed -= hero.Restart;
+        inputActions.Player.Pause.performed -= hero.Pause;
         inputActions.Disable();
     }
 
@@ -73,5 +77,21 @@ public class InputManager : MonoBehaviour
             .WithControlsExcluding("Mouse")
             .OnComplete(operation => Debug.Log("Rebinding Complete!"))
             .Start();
+    }
+
+    public void RebindRestart()
+    {
+        inputActions.Player.Restart.PerformInteractiveRebinding()
+            .WithControlsExcluding("Mouse")
+            .OnComplete(operation => Debug.Log("Rebinding Complete!"))
+            .Start();
+    }
+
+    public void RebindPause()
+    {
+        inputActions.Player.Pause.PerformInteractiveRebinding()
+          .WithControlsExcluding("Mouse")
+          .OnComplete(operation => Debug.Log("Rebinding Complete!"))
+          .Start();
     }
 }

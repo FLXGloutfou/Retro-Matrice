@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Hero : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Hero : MonoBehaviour
     private GameObject currentPreShowFab;
     public delegate void TurretLoadChangedEventHandler(int newTurretLoad);
     public static event TurretLoadChangedEventHandler OnTurretLoadChanged;
+    public GameObject PauseWindow;
+    bool isPaused;
 
     public float currentHealth = 100f;
     public float maxHealth = 100f;
@@ -37,21 +40,26 @@ public class Hero : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         respawnpoint = transform.position;
+        isPaused = false;
     }
 
     void Update()
     {
-        Move();
-        PreShowPrefab();
-
-        // V�rification du sol
-        auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);
-
-        if (auSol)
+        if (!isPaused)
         {
-            nombreSautsRestants = 2;
-            peutSauter = true;
+            Move();
+            PreShowPrefab();
+
+            // V�rification du sol
+            auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);
+
+            if (auSol)
+            {
+                nombreSautsRestants = 2;
+                peutSauter = true;
+            }
         }
+        
     }
 
     //==================================== LES INPUT====================================//
@@ -101,6 +109,36 @@ public class Hero : MonoBehaviour
         if (context.performed && prefabsToInvoke.Length > 0)
         {
             currentPrefabIndex = (currentPrefabIndex - 1 + prefabsToInvoke.Length) % prefabsToInvoke.Length;
+        }
+    }
+
+    public void Restart(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
+    public void Pause(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isPaused = !isPaused;
+            if (isPaused)
+            {
+                Time.timeScale = 0;
+                PauseWindow.SetActive(true);
+                Cursor.lockState = CursorLockMode.None; // Déverrouille le curseur
+                Cursor.visible = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                PauseWindow.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked; // Verrouille le curseur
+                Cursor.visible = false;
+            }
         }
     }
 
