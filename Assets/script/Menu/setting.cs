@@ -7,6 +7,7 @@ public class setting : MonoBehaviour
     public AudioMixer audioMixer;
     public GameObject settingWindow;
 
+    public Hero hero;
     public void SetVolume(float volume)
     {
         audioMixer.SetFloat("volume", volume);

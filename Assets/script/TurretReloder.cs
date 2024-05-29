@@ -6,6 +6,10 @@ public class TurretReloder : MonoBehaviour
 {
     public int value;
 
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -18,4 +22,5 @@ public class TurretReloder : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }

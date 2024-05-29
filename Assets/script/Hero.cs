@@ -41,6 +41,7 @@ public class Hero : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         respawnpoint = transform.position;
         isPaused = false;
+
     }
 
     void Update()
@@ -128,16 +129,12 @@ public class Hero : MonoBehaviour
             if (isPaused)
             {
                 Time.timeScale = 0;
-                PauseWindow.SetActive(true);
-                Cursor.lockState = CursorLockMode.None; // Déverrouille le curseur
-                Cursor.visible = true;
+                PauseWindow.SetActive(true);                
             }
             else
             {
                 Time.timeScale = 1;
                 PauseWindow.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked; // Verrouille le curseur
-                Cursor.visible = false;
             }
         }
     }
@@ -222,4 +219,5 @@ public class Hero : MonoBehaviour
     {
         respawnpoint = newRespawnPoint;
     }
+
 }

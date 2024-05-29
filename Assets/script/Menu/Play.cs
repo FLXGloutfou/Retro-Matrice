@@ -6,6 +6,7 @@ public class Play : MonoBehaviour
 {
     public string mainPlayLoad;
     public string protoypeLoad;
+    public GameObject PlayWindows;
     public void MainPlay()
     {
         SceneManager.LoadScene(mainPlayLoad);
@@ -14,5 +15,8 @@ public class Play : MonoBehaviour
     {
         SceneManager.LoadScene(protoypeLoad);
     }
-
+    public void ClosePlayWindow()
+    {
+        PlayWindows.SetActive(false);
+    }
 }
