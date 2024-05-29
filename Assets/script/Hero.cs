@@ -20,6 +20,7 @@ public class Hero : MonoBehaviour
     public static event TurretLoadChangedEventHandler OnTurretLoadChanged;
     public GameObject PauseWindow;
     bool isPaused;
+    public Despawn despawn;
 
     public float currentHealth = 100f;
     public float maxHealth = 100f;
@@ -33,7 +34,6 @@ public class Hero : MonoBehaviour
     private Rigidbody2D rb;
     private bool faceRight = true;
     private Vector2 moveInput;
-    
 
 
     void Start()
@@ -86,7 +86,7 @@ public class Hero : MonoBehaviour
 
     public void OnInvoqueTurret(InputAction.CallbackContext context)
     {
-        if (context.performed && prefabsToInvoke.Length > 0 && TurretLoad > 0)
+        if (context.performed && prefabsToInvoke.Length > 0 && TurretLoad > 0 && despawn.Isactive == true)
         {
             Vector2 offset = offsetDistances.Length > currentPrefabIndex ? offsetDistances[currentPrefabIndex] : Vector2.right;
             Vector2 spawnPosition = (Vector2)transform.position + (faceRight ? new Vector2(offset.x, offset.y) : new Vector2(-offset.x, offset.y));
@@ -218,6 +218,11 @@ public class Hero : MonoBehaviour
     public void SetRespawnPoint(Vector3 newRespawnPoint)
     {
         respawnpoint = newRespawnPoint;
+    }
+
+    public void SetTurretActive(bool TurretToactive)
+    {
+        
     }
 
 }
