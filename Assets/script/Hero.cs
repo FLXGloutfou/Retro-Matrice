@@ -8,8 +8,9 @@ public class Hero : MonoBehaviour
     public float vitesseDeplacement = 5f;
     public float forceSaut = 10f;
     public Transform solCheckPosition;
-    public GameObject[] prefabsToInvoke; 
+    public GameObject[] prefabsToInvoke;
     public Vector2[] offsetDistances;
+    public bool[] ActiveTurret;
     public int nombreSautsRestants = 2;
     public int currentPrefabIndex = 0;
     public int TurretLoad = 0;
@@ -86,7 +87,7 @@ public class Hero : MonoBehaviour
 
     public void OnInvoqueTurret(InputAction.CallbackContext context)
     {
-        if (context.performed && prefabsToInvoke.Length > 0 && TurretLoad > 0 && despawn.Isactive == true)
+        if (context.performed && prefabsToInvoke.Length > 0 && TurretLoad > 0)
         {
             Vector2 offset = offsetDistances.Length > currentPrefabIndex ? offsetDistances[currentPrefabIndex] : Vector2.right;
             Vector2 spawnPosition = (Vector2)transform.position + (faceRight ? new Vector2(offset.x, offset.y) : new Vector2(-offset.x, offset.y));
@@ -218,11 +219,6 @@ public class Hero : MonoBehaviour
     public void SetRespawnPoint(Vector3 newRespawnPoint)
     {
         respawnpoint = newRespawnPoint;
-    }
-
-    public void SetTurretActive(bool TurretToactive)
-    {
-        
     }
 
 }

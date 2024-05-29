@@ -9,7 +9,7 @@ public class TutoPrefabDoor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Despawn>().SetActiveTurret();
+
         }
     }
 }
