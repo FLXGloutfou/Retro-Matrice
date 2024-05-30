@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class Hero : MonoBehaviour
 {
+
     public float vitesseDeplacement = 5f;
     public float forceSaut = 10f;
     public Transform solCheckPosition;
     public GameObject[] prefabsToInvoke;
     public Vector2[] offsetDistances;
-    public bool[] ActiveTurret;
     public int nombreSautsRestants = 2;
     public int currentPrefabIndex = 0;
     public int TurretLoad = 0;
@@ -52,7 +52,7 @@ public class Hero : MonoBehaviour
             Move();
             PreShowPrefab();
 
-            // V�rification du sol
+            // Vï¿½rification du sol
             auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);
 
             if (auSol)
@@ -61,7 +61,7 @@ public class Hero : MonoBehaviour
                 peutSauter = true;
             }
         }
-        
+
     }
 
     //==================================== LES INPUT====================================//
@@ -103,7 +103,7 @@ public class Hero : MonoBehaviour
         {
             currentPrefabIndex = (currentPrefabIndex + 1) % prefabsToInvoke.Length;
         }
-            
+
     }
 
     public void OnPrevPrefab(InputAction.CallbackContext context)
@@ -130,7 +130,7 @@ public class Hero : MonoBehaviour
             if (isPaused)
             {
                 Time.timeScale = 0;
-                PauseWindow.SetActive(true);                
+                PauseWindow.SetActive(true);
             }
             else
             {
@@ -182,7 +182,7 @@ public class Hero : MonoBehaviour
             scriptOnPrefab = currentPreShowFab.GetComponent<MonoBehaviour>();
             scriptOnPrefab.enabled = false;
         }
-        
+
     }
 
     void Flip()
