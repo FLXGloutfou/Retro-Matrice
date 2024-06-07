@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 631658342814276529}
   - component: {fileID: 4138003796572658909}
   - component: {fileID: 5570128945289354760}
+  - component: {fileID: 9220384714140577177}
   m_Layer: 0
   m_Name: Sign
   m_TagString: Untagged
@@ -28,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 69685243153566209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.71, y: -3.53, z: 0}
-  m_LocalScale: {x: 0.7824, y: 1.6723, z: 1}
+  m_LocalPosition: {x: 18.9116, y: -12.5545, z: 0}
+  m_LocalScale: {x: 0.11168137, y: 0.13873333, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 0.6037736, g: 0.24384215, b: 0.06550375, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e576ca1f3c184294e92e8644ce6290a7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -118,18 +119,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.35552573, y: -1.4508729}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8828125, y: 1}
+    oldSize: {x: 23.603092, y: 16.4}
     newSize: {x: 0.8828125, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8828125, y: 1}
+  m_Size: {x: 10.391558, y: 10.7001295}
   m_EdgeRadius: 0
 --- !u!114 &5570128945289354760
 MonoBehaviour:
@@ -146,3 +147,24 @@ MonoBehaviour:
   Message: {fileID: 0}
   SignText: {fileID: 0}
   messageTexte: Salut ca roule ?
+--- !u!95 &9220384714140577177
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69685243153566209}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 94d8edbbe8f941446829c5b61ab952c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
