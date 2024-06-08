@@ -120,6 +120,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3084146265539272307}
+  - {fileID: 1103543142690772488}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8163703563845240835
@@ -269,17 +270,18 @@ MonoBehaviour:
   offsetDistances:
   - {x: 2.5, y: -0.7}
   - {x: 1.5, y: -0.6}
-  - {x: 1, y: 0.5}
-  - {x: 1.5, y: 2.5}
-  nombreSautsRestants: 2
+  - {x: 2, y: 0.5}
+  - {x: 2, y: 2.5}
   currentPrefabIndex: 0
-  TurretLoad: 5000
+  TurretLoad: 0
   scriptOnPrefab: {fileID: 0}
   newOpacity: 0.3
   PauseWindow: {fileID: 0}
   despawn: {fileID: 0}
   currentHealth: 100
   maxHealth: 100
+  nombreSautsRestants: 2
+  IsJumping: 0
 --- !u!114 &6996153580046899776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,3 +485,34 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &5299894117774744753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1103543142690772488}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1103543142690772488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5299894117774744753}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3280242743105095937}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

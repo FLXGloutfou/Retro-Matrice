@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 378871184}
   - component: {fileID: 378871183}
   - component: {fileID: 378871182}
+  - component: {fileID: 378871185}
   m_Layer: 0
   m_Name: floor
   m_TagString: Untagged
@@ -1610,6 +1611,33 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!50 &378871185
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378871180}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 1133522b349d45b449f10f35db85c872, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &479163546 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7124481411825795967, guid: 1471c75118a8ef74aa2f4b4e20341cbc, type: 3}
@@ -2768,7 +2796,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.08357554, g: 0.046724804, b: 0.09433961, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

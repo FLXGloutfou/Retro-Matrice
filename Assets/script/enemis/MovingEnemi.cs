@@ -40,10 +40,6 @@ public class MovingEnemi : MonoBehaviour
         {
             
             collision.gameObject.GetComponent<Hero>().TakeDamage(damageAmount);
-
-            // Repousser le joueur
-            //Vector2 repelDirection = (collision.transform.position - transform.position).normalized;
-            //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(repelDirection * repelForce, ForceMode2D.Impulse);
         }
     }
 }

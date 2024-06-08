@@ -48,7 +48,6 @@ public class Hero : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        respawnpoint = transform.position;
         isPaused = false;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -277,6 +276,7 @@ public class Hero : MonoBehaviour
         currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth);
         transform.position = respawnpoint;
+
     }
     public void SetRespawnPoint(Vector3 newRespawnPoint)
     {
