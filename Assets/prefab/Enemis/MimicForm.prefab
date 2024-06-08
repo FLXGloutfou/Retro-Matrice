@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2c0a602e4afa0904ea5d2415c61a1bea, type: 3}
-  m_Color: {r: 0.6981132, g: 0.48617205, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -172,7 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52955605cbd79a8409fdc319b07f56b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eatMimicSprite: {fileID: 21300000, guid: 5e049a8f255844b43a4504301dea94ac, type: 3}
   damageAmount: 100
 --- !u!95 &8982725598387942966
 Animator:

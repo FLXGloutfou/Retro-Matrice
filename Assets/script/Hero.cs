@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class Hero : MonoBehaviour
 {
@@ -10,8 +11,7 @@ public class Hero : MonoBehaviour
     public float forceSaut = 10f;
     public Transform solCheckPosition;
     public GameObject[] prefabsToInvoke;
-    public Vector2[] offsetDistances;
-    public int nombreSautsRestants = 2;
+    public Vector2[] offsetDistances; 
     public int currentPrefabIndex = 0;
     public int TurretLoad = 0;
     public MonoBehaviour scriptOnPrefab;
@@ -23,6 +23,7 @@ public class Hero : MonoBehaviour
     bool isPaused;
     public Despawn despawn;
 
+
     public float currentHealth = 100f;
     public float maxHealth = 100f;
     public delegate void HealthChangedEventHandler(float newHealth);
@@ -32,17 +33,25 @@ public class Hero : MonoBehaviour
 
     private bool auSol = false;
     private bool peutSauter = true;
+    public int nombreSautsRestants = 2;
+    public bool IsJumping = false;
     private Rigidbody2D rb;
     private bool faceRight = true;
     private Vector2 moveInput;
+    private bool IsFlipping = false;
 
     private bool peutBouger = true;
+
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         respawnpoint = transform.position;
         isPaused = false;
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
     }
 
@@ -56,15 +65,39 @@ public class Hero : MonoBehaviour
             Move();
             PreShowPrefab();
 
-            // Vï¿½rification du sol
             auSol = Physics2D.Raycast(solCheckPosition.position, Vector2.down, 0.2f);
 
             if (auSol)
             {
+                animator.SetBool("JumpOn", false);
                 nombreSautsRestants = 2;
                 peutSauter = true;
+                IsJumping = false;
             }
+            else
+            {
+                IsJumping = true;
+                animator.SetBool("JumpOn", true);
+            }
+
+            if (IsJumping && faceRight == true && IsFlipping == false)
+            {
+                spriteRenderer.flipX = !spriteRenderer.flipX;
+                IsFlipping = true;
+            }
+            else if (IsJumping && faceRight == false && IsFlipping == true)
+            {
+                spriteRenderer.flipX = !spriteRenderer.flipX;
+                IsFlipping = false;
+            }
+            else if (auSol && IsFlipping == true)
+            {
+                spriteRenderer.flipX = !spriteRenderer.flipX;
+                IsFlipping = false;
+            }
+
         }
+
 
     }
 
@@ -76,7 +109,7 @@ public class Hero : MonoBehaviour
     }
 
     public void OnJump(InputAction.CallbackContext context)
-    {
+    {        
         if (context.performed && (auSol || (peutSauter && nombreSautsRestants > 0)))
         {
             rb.velocity = new Vector2(rb.velocity.x, forceSaut);
@@ -86,7 +119,9 @@ public class Hero : MonoBehaviour
                 nombreSautsRestants--;
                 peutSauter = false;
             }
+
         }
+
     }
 
     public void OnInvoqueTurret(InputAction.CallbackContext context)
@@ -153,11 +188,31 @@ public class Hero : MonoBehaviour
         if (deplacementHorizontal > 0 && !faceRight)
         {
             Flip();
+            spriteRenderer.flipX = !spriteRenderer.flipX;
         }
         else if (deplacementHorizontal < 0 && faceRight)
         {
             Flip();
+            spriteRenderer.flipX = !spriteRenderer.flipX;
         }
+
+        if (deplacementHorizontal < 0)
+        {
+            animator.SetFloat("MoveAnim", -1f);
+        }
+        else if (deplacementHorizontal > 0)
+        {
+            animator.SetFloat("MoveAnim", 1f);
+        }
+        else if (deplacementHorizontal == 0)
+        {
+            animator.SetFloat("MoveAnim", 0f);
+        }
+
+
+
+
+        
     }
 
     public void TurretLoadCount(int value)
@@ -181,8 +236,11 @@ public class Hero : MonoBehaviour
             spriteColor.a = newOpacity;
             spriteRenderer.color = spriteColor;
 
-            Collider2D colliderToDisable = currentPreShowFab.GetComponent<Collider2D>();
-            colliderToDisable.enabled = false;
+            Collider2D[] colliders = currentPreShowFab.GetComponents<Collider2D>();
+            foreach (Collider2D collider in colliders)
+            {
+                collider.enabled = false;
+            }
             scriptOnPrefab = currentPreShowFab.GetComponent<MonoBehaviour>();
             scriptOnPrefab.enabled = false;
         }

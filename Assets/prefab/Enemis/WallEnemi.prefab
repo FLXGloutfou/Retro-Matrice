@@ -145,8 +145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mur: {fileID: 7063616956961824616, guid: 2a029929eef497741b9ce0dffb66f302, type: 3}
-  distanceFromEnemy: 1
-  verticalOffset: 2
+  distanceFromEnemy: 2
+  verticalOffset: 1.9
 --- !u!95 &7159100458422295496
 Animator:
   serializedVersion: 5

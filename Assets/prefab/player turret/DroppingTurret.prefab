@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4190757597358044349}
   - component: {fileID: 5031199927590177998}
   - component: {fileID: 4094207348645586574}
-  - component: {fileID: 3741980084292028416}
   - component: {fileID: 4867977381111679899}
+  - component: {fileID: 3741980084292028416}
   m_Layer: 0
   m_Name: DroppingTurret
   m_TagString: Untagged
@@ -160,18 +160,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 14.298734, y: 5.1306334}
   m_EdgeRadius: 0
---- !u!114 &3741980084292028416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4880684105590380977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 505ada0ad7568114a8dbb75974095bbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &4867977381111679899
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -217,3 +205,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &3741980084292028416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4880684105590380977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505ada0ad7568114a8dbb75974095bbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
