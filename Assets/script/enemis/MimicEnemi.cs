@@ -5,19 +5,34 @@ using UnityEngine;
 public class MimicEnemi : MonoBehaviour
 {
 
-    public Sprite eatMimicSprite ;
     public float damageAmount;
+
+    private Animator animator;
+    private Hero heroScript;
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+        heroScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Hero>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GetComponent<SpriteRenderer>().sprite = eatMimicSprite;
-            collision.gameObject.GetComponent<Hero>().TakeDamage(damageAmount);
+            animator.SetBool("Eat On", true);
+            heroScript.SetPeutBouger(false);
+            Invoke("Eat", 1f);  
         }
+
+        
+    }
+
+    void Eat()
+    {
+        animator.SetBool("Eat On", false);
+        heroScript.SetPeutBouger(true);
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<Hero>().TakeDamage(damageAmount);
     }
 }

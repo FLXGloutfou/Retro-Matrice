@@ -36,6 +36,7 @@ public class Hero : MonoBehaviour
     private bool faceRight = true;
     private Vector2 moveInput;
 
+    private bool peutBouger = true;
 
     void Start()
     {
@@ -49,6 +50,9 @@ public class Hero : MonoBehaviour
     {
         if (!isPaused)
         {
+            if (!peutBouger)
+                return;
+
             Move();
             PreShowPrefab();
 
@@ -219,6 +223,13 @@ public class Hero : MonoBehaviour
     public void SetRespawnPoint(Vector3 newRespawnPoint)
     {
         respawnpoint = newRespawnPoint;
+    }
+
+    public void SetPeutBouger(bool peutBougerState)
+    {
+        peutBouger = peutBougerState;
+        peutSauter = peutBougerState;
+        rb.velocity = Vector2.zero;
     }
 
 }
