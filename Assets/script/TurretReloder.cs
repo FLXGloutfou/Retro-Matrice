@@ -8,17 +8,14 @@ public class TurretReloder : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             Hero TurretCount = other.GetComponent<Hero>();
-            if (TurretCount != null)
-            {
-                TurretCount.TurretLoadCount(value);
-            }
+            TurretCount.TurretLoadCount(value);
             Destroy(gameObject);
         }
     }
