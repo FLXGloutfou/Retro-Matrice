@@ -167,7 +167,7 @@ MonoBehaviour:
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
-  damageAmount: 10
+  damageAmount: 100
   repelForce: 20
 --- !u!95 &2253204513670278759
 Animator:
